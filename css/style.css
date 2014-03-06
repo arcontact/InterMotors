@@ -135,20 +135,21 @@ body {
 	clear: both;
 }
 .left-sidebar {
-	display: block;
-	width: 100%;
-	min-height: 100%;
-	height: auto;
-	position: absolute;
-	top:-100%;
-	left:0;
-	overflow:hidden;
-	overflow-x:hidden;
+	display:block;
+	width:100%;
+	min-height:100%;
+	height:auto;
+	position:absolute;
+	top:0;
+	left:-100%;
+	overflow: auto;
+	overflow-x: hidden;
+	-webkit-overflow-scrolling: touch;
 	background: #131313 url(../img/sidebar-background.jpg) repeat-y right;
 }
 .left-sidebar.open{
-	left:0;
 	top:0;
+	left:0;
 }
 .left-sidebar ul{
 	margin:0;
@@ -193,19 +194,19 @@ body {
 	min-height:100%;
 	position:absolute;
 	display:block;
-	top:-100%;
-	left:0;
-	overflow:hidden;
+	top:0;
+	left:-100%;
+	overflow-y: auto;
 	background: #131313 url(../img/sidebar-background.jpg) repeat-y right;
+}
+.right-sidebar.open{
+	top:0;
+	left:0;
 }
 .ui-bar-a .ui-shadow,.ui-bar-c,.ui-bar-d,.ui-bar-e,.ui-body-a,.ui-body-b,.ui-body-c,.ui-body-d,.ui-body-e,.ui-btn-active,.ui-btn-down-a,.ui-btn-down-b,.ui-btn-down-c,.ui-btn-down-d,.ui-btn-down-e,.ui-btn-hover-a,.ui-btn-hover-b,.ui-btn-hover-c,.ui-btn-hover-d,.ui-btn-hover-e,.ui-btn-up-a,.ui-btn-up-b,.ui-btn-up-c,.ui-btn-up-d,.ui-btn-up-e,.ui-overlay-c,.ui-overlay-shadow,.ui-shadow{
 	text-shadow: none;
 	box-shadow: none;
 	-webkit-box-shadow: none
-}
-.right-sidebar.open{
-	top:0;
-	left:0;
 }
 header {
 	height: 46px;
