@@ -14,15 +14,6 @@
 		<script type="text/javascript" src="js/idangerous.swiper.min.js"></script>
 		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places,geometry&sensor=true"></script>
 		<script type="text/javascript" src="js/googlemap.js"></script>
-		<script type="text/javascript">
-			var slides = new Array(
-				"test0",
-				"test1",
-				"test2",
-				"test3",
-				"test4"
-			);
-		</script>
 		<script type="text/javascript" src="js/script.js"></script>
 		<script type="text/javascript">
 			app.initialize();
@@ -30,49 +21,47 @@
     </head>
     <body>
 		<div data-role="page" class="ui-page-active">
-			<div role="main" class="ui-content">
-				<aside class="left-sidebar">
-					<div class="sidebar-arrow"><a data-swipe="right"><img src="img/sidebar-arrow-right.png" alt=""></a><p>Kategorie katalogu</p></div>
-					<ul>
-						<li><span class="section section_1"></span> <a href="#">Dla kobiet</a></li>
-						<li><span class="section section_2"></span> <a href="pages/kaski_i_intercomy/index.html">Kaski i intercomy</a></li>
-						<li><span class="section section_3"></span> <a href="#">Kombinezony skórzane</a></li>
-						<li><span class="section section_4"></span> <a href="#">Kurtki skórzane</a></li>
-						<li><span class="section section_5"></span> <a href="#">Komplety tekstylne</a></li>
-						<li><span class="section section_6"></span> <a href="#">Kurtki tekstylne i kamizelki</a></li>
-						<li><span class="section section_7"></span> <a href="#">Spodnie skórzane</a></li>
-						<li><span class="section section_8"></span> <a href="#">Spodnie tekstylne</a></li>
-						<li><span class="section section_9"></span> <a href="#">Rękawice</a></li>
-						<li><span class="section section_10"></span> <a href="pages/buty/index.html" data-ajax="false">Buty</a></li>
-						<li><span class="section section_11"></span> <a href="#">Ochraniacze</a></li>
-						<li><span class="section section_12"></span> <a href="#">Ubrania przeciwdeszczowe</a></li>
-						<li><span class="section section_13"></span> <a href="#">Odzież termoaktywna</a></li>
-						<li><span class="section section_14"></span> <a href="#">Odzież codzienna</a></li>
-						<li><span class="section section_15"></span> <a href="#">Bagaż</a></li>
-						<li><span class="section section_16"></span> <a href="#">Akcesoria</a></li>
-						<li><span class="section section_17"></span> <a href="#">Off-Road</a></li>
-					</ul>
-				</aside>
-				<aside class="right-sidebar">
-					<div class="sidebar-arrow"><a data-swipe="left"><img src="img/sidebar-arrow-left.png" alt=""></a><p>Ustalanie pozycji...</p></div>
-					<div class="map-outer"><div id="map_canvas" class="loading"></div></div>
-				</aside>
-				<div class="content">
-					<header>
-						<div class="controls controls1">
-							<a data-swipe="right"><img src="img/icon-toggle.png" alt=""></a>
-						</div>
-						<a class="logo"><img src="img/logo-header.png" alt=""></a>
-						<div class="controls controls2">
-							<a data-swipe="left"><img src="img/icon-map.png" alt=""></a>
-						</div>
-					</header>
-					<div id="main_bar" class="section_0">
-						<h1>Katalog 2014</h1>
+			<aside class="left-sidebar" id="leftSidebar">
+				<div class="sidebar-arrow"><a data-swipe="right"><img src="img/sidebar-arrow-right.png" alt=""></a><p>Kategorie katalogu</p></div>
+				<ul>
+					<li><span class="section section_1"></span> <a href="pages/dla_kobiet/index.html">Dla kobiet</a></li>
+					<li><span class="section section_2"></span> <a href="#">Kaski i intercomy</a></li>
+					<li><span class="section section_3"></span> <a href="#">Kombinezony skórzane</a></li>
+					<li><span class="section section_4"></span> <a href="#">Kurtki skórzane</a></li>
+					<li><span class="section section_5"></span> <a href="#">Komplety tekstylne</a></li>
+					<li><span class="section section_6"></span> <a href="#">Kurtki tekstylne i kamizelki</a></li>
+					<li><span class="section section_7"></span> <a href="#">Spodnie skórzane</a></li>
+					<li><span class="section section_8"></span> <a href="#">Spodnie tekstylne</a></li>
+					<li><span class="section section_9"></span> <a href="#">Rękawice</a></li>
+					<li><span class="section section_10"></span> <a href="pages/buty/index.html" data-ajax="false">Buty</a></li>
+					<li><span class="section section_11"></span> <a href="#">Ochraniacze</a></li>
+					<li><span class="section section_12"></span> <a href="#">Ubrania przeciwdeszczowe</a></li>
+					<li><span class="section section_13"></span> <a href="#">Odzież termoaktywna</a></li>
+					<li><span class="section section_14"></span> <a href="#">Odzież codzienna</a></li>
+					<li><span class="section section_15"></span> <a href="#">Bagaż</a></li>
+					<li><span class="section section_16"></span> <a href="#">Akcesoria</a></li>
+					<li><span class="section section_17"></span> <a href="#">Off-Road</a></li>
+				</ul>
+			</aside>
+			<aside class="right-sidebar" id="rightSidebar">
+				<div class="sidebar-arrow"><a data-swipe="left"><img src="img/sidebar-arrow-left.png" alt=""></a><p>Ustalanie pozycji...</p></div>
+				<div class="map-outer"><div id="map_canvas" class="loading"></div></div>
+			</aside>
+			<div class="content">
+				<header>
+					<div class="controls controls1">
+						<a data-swipe="right"><img src="img/icon-toggle.png" alt=""></a>
 					</div>
-					<div class="main-site">
-						<img src="img/app_bg3.jpg" alt="" class="img-responsive" />
+					<a class="logo"><img src="img/logo-header.png" alt=""></a>
+					<div class="controls controls2">
+						<a data-swipe="left"><img src="img/icon-map.png" alt=""></a>
 					</div>
+				</header>
+				<div id="main_bar" class="section_0">
+					<h1>Katalog 2014</h1>
+				</div>
+				<div class="main-site">
+					<img src="img/app_bg3.jpg" alt="" class="img-responsive" />
 				</div>
 			</div>
 		</div>

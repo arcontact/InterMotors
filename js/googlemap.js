@@ -27,6 +27,8 @@ var startingLatitude = 52.069347;
 var startingLongitude = 19.480204;
 function GoogleMap(){
 	this.initialize = function(){
+		var h = $(document).height() - 46;
+		$("#map_canvas").css({"height":h});
 		if(navigator.geolocation){
 			$(".ui-page-active .right-sidebar .sidebar-arrow p").html('Łączenie z Google...');
 			navigator.geolocation.getCurrentPosition(displayPosition,geolocationError);
@@ -118,7 +120,7 @@ function displayPosition(pos){
 	}
 	map.fitBounds(bounds);
 	$(".ui-page-active .right-sidebar .sidebar-arrow p").html("Najbliżej: "+locations[closestMarker].address);
-	$(".ui-page-active #map_canvas")[0].addClass("loaded");
+	$(".ui-page-active #map_canvas").addClass("loaded");
 }
 function geolocationError() {
 	$(".ui-page-active .right-sidebar .sidebar-arrow p").html('Nie można ustalić pozycji - <a onclick="showGeolocationForm();">ustal ręcznie</a>');

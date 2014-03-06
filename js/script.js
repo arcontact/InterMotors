@@ -14,10 +14,10 @@ function initiateScripts(){
 	buildSwiper();
 }
 function buildSwiper(){
-	var h = $(document).height() - ($("header").height() + $("#main_bar").height() + $("#sub_bar").height());
-	$('.swiper-container').height(h);
 	var loadedSlides = new Array();
 	var mySwiper = $('.swiper-container').swiper({
+		resizeReInit: true,
+		updateOnImagesReady: true,
 		onFirstInit: function(s){
 			if(typeof slides[1]!='undefined'){
 				$(".swiper-wrapper").load(slides[1],function(r1){
@@ -26,15 +26,21 @@ function buildSwiper(){
 						mySwiper.reInit();
 						loadedSlides.push(slides[0]);
 						loadedSlides.push(slides[1]);
+						updateSwiperHeight();
 					});
 				});
 			} else {
 				$(".swiper-wrapper").load(slides[0],function(r2){
 					mySwiper.reInit();
 					loadedSlides.push(slides[0]);
+					updateSwiperHeight();
 				});
 			}
 			$('.slides_left').html(slides.length);
+			$(".swiper-wrapper, .swiper-slide").height(1);
+		},
+		onSwiperCreated:function(){
+			//updateSwiperHeight();
 		},
 		onSlideNext: function(s){
 			if(typeof slides[mySwiper.activeIndex+1]!='undefined' && slides.length > loadedSlides.length){
@@ -48,6 +54,7 @@ function buildSwiper(){
 		onSlideChangeEnd: function(s,d){
 			var actual_slide = parseInt($('.actual_slide').html());
 			d=='next'?$('.actual_slide').html((actual_slide+1)):$('.actual_slide').html((actual_slide-1));
+			updateSwiperHeight();
 		}
 	});
 	$("#sub_bar .arrow-right").bind("click",function(){
@@ -56,11 +63,24 @@ function buildSwiper(){
 	$("#sub_bar .arrow-left").bind("click",function(){
 		mySwiper.swipePrev();
 	});
+	window.addEventListener( 'onorientationchange', updateSwiperHeight, false );
 	window.onresize = function(event) {
 		var h = $(document).height() - ($("header").height() + $("#main_bar").height() + $("#sub_bar").height());
 		$('.swiper-container').height(h);
 		mySwiper.reInit();
 	};
+}
+function updateSwiperHeight(){
+	var totalHeight = 0;
+	$(".swiper-slide-active").children().each(function(){
+		if($(this).find("img")) {
+			console.log('found image');
+		} else {
+			console.log('no image');
+		}
+		totalHeight += $(this).outerHeight();
+	});
+	$(".swiper-wrapper, .swiper-slide").height(totalHeight);
 }
 function contentSwipeLeftHandler(event){
 	var position = $(".ui-page-active .content").hasClass("open-right") ? 'left' : ($(".ui-page-active .content").hasClass("open-left") ? 'right' : 'center');
@@ -89,12 +109,14 @@ function contentSwipeRightHandler(event){
 function toggleLeftSideBar(){
 	$(".ui-page-active .content").toggleClass("open-left");
 	$(".ui-page-active .controls1").toggleClass("active");
-	$(".ui-page-active .left-sidebar").toggle().toggleClass("open");
+	$(".ui-page-active .left-sidebar").toggleClass("open");
+	$(".ui-page-active .right-sidebar").hide();
 }
 function toggleRightSideBar(){
 	$(".ui-page-active .content").toggleClass("open-right");
 	$(".ui-page-active .controls2").toggleClass("active");
-	$(".ui-page-active .right-sidebar").toggle().toggleClass("open");
+	$(".ui-page-active .right-sidebar").toggleClass("open");
+	$(".ui-page-active .left-sidebar").hide();
 	if(typeof GoogleMap != 'undefined'){
 		if(!$(".ui-page-active #map_canvas").hasClass("loaded")){
 			$(".ui-page-active .right-sidebar .sidebar-arrow p").html('Łączenie...');
