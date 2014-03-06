@@ -89,29 +89,29 @@ function contentSwipeRightHandler(event){
 function toggleLeftSideBar(){
 	$(".ui-page-active .content").toggleClass("open-left");
 	$(".ui-page-active .controls1").toggleClass("active");
-	$(".ui-page-active .left-sidebar").toggleClass("open");
+	$(".left-sidebar").toggleClass("open");
 }
 function toggleRightSideBar(){
 	$(".ui-page-active .content").toggleClass("open-right");
 	$(".ui-page-active .controls2").toggleClass("active");
-	$(".ui-page-active .right-sidebar").toggleClass("open");
+	$(".right-sidebar").toggleClass("open");
 	if(typeof GoogleMap != 'undefined'){
-		if(!$(".ui-page-active #map_canvas").hasClass("loaded")){
-			$(".ui-page-active .right-sidebar .sidebar-arrow p").html('Łączenie...');
+		if(!$("#map_canvas").hasClass("loaded")){
+			$(".right-sidebar .sidebar-arrow p").html('Łączenie...');
 			var gmap = new GoogleMap();
 			gmap.initialize();
 		} else {
-			$(".ui-page-active").find('#map_canvas').removeClass("loading").html('<div class="error">Geolokalizacja wyłączona.</div>');
-			$(".ui-page-active .right-sidebar .sidebar-arrow p").html('Brak połączenia');
+			$('#map_canvas').removeClass("loading").html('<div class="error">Geolokalizacja wyłączona.</div>');
+			$(".right-sidebar .sidebar-arrow p").html('Brak połączenia');
 		}
 	} else {
-		$(".ui-page-active").find('#map_canvas').removeClass("loading").html('<div class="error">Geolokalizacja wyłączona.</div>');
-		$(".ui-page-active .right-sidebar .sidebar-arrow p").html('Brak połączenia');
+		$('#map_canvas').removeClass("loading").html('<div class="error">Geolokalizacja wyłączona.</div>');
+		$(".right-sidebar .sidebar-arrow p").html('Brak połączenia');
 	}
 	window.setInterval(function() {
-		var x = $(".ui-page-active .right-sidebar .sidebar-arrow p").html();
+		var x = $(".right-sidebar .sidebar-arrow p").html();
 		if(x=='Ustalanie pozycji...' || x=='Łączenie...'){
-			$(".ui-page-active .right-sidebar .sidebar-arrow p").html('Błąd połączenia!');
+			$(".right-sidebar .sidebar-arrow p").html('Błąd połączenia!');
 		} else if(x=='Łączenie z Google...'){
 			geolocationError();
 		}
