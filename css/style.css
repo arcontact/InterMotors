@@ -135,7 +135,7 @@ body.ui-mobile-viewport, div.ui-mobile-viewport {
 	clear: both;
 }
 .left-sidebar {
-	display: block;
+	display: none;
 	width: 100%;
 	min-height: 100%;
 	height: auto;
@@ -189,6 +189,7 @@ body.ui-mobile-viewport, div.ui-mobile-viewport {
 	color: #fe2a46;
 }
 .right-sidebar {
+	display:none;
 	width: 100%;
 	min-height: 100%;
 	position: absolute;
