@@ -1,6 +1,16 @@
 abbr,address,article,aside,audio,b,blockquote,body,canvas,caption,cite,code,dd,del,details,dfn,div,dl,dt,em,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,p,pre,q,samp,section,small,span,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,ul,var,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:0 0}body{line-height:1}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}nav ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}a{margin:0;padding:0;font-size:100%;vertical-align:baseline;background:0 0}ins{background-color:#ff9;color:#000;text-decoration:none}mark{background-color:#ff9;color:#000;font-style:italic;font-weight:700}del{text-decoration:line-through}abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help}table{border-collapse:collapse;border-spacing:0}hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0}input,select{vertical-align:middle}
 .ui-bar-a .ui-shadow,.ui-bar-c,.ui-bar-d,.ui-bar-e,.ui-body-a,.ui-body-b,.ui-body-c,.ui-body-d,.ui-body-e,.ui-btn-active,.ui-btn-down-a,.ui-btn-down-b,.ui-btn-down-c,.ui-btn-down-d,.ui-btn-down-e,.ui-btn-hover-a,.ui-btn-hover-b,.ui-btn-hover-c,.ui-btn-hover-d,.ui-btn-hover-e,.ui-btn-up-a,.ui-btn-up-b,.ui-btn-up-c,.ui-btn-up-d,.ui-btn-up-e,.ui-overlay-c,.ui-overlay-shadow,.ui-shadow{text-shadow:none;box-shadow:none;-webkit-box-shadow:none}
-* {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
 @font-face {
 	font-family: 'DINPro-Regular';
 	src: url('fonts/DINPro-Regular.eot');
@@ -276,9 +286,10 @@ header .logo img {
 	color: #fff;
 	padding:0;
 }
-.main-site img.img-responsive {
+img.img-responsive {
 	display: block;
 	max-width: 100%;
+	height: auto;
 	margin-left: auto;
 	margin-right: auto;
 }

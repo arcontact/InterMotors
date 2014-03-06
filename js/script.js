@@ -16,36 +16,46 @@ function initiateScripts(){
 function buildSwiper(){
 	var h = $(document).height() - ($("header").height() + $("#main_bar").height() + $("#sub_bar").height());
 	$('.swiper-container').height(h);
-	var loadedSlides = 0;
+	var loadedSlides = new Array();
 	var mySwiper = $('.swiper-container').swiper({
 		onFirstInit: function(s){
-			$(".swiper-wrapper").load(slides[1]+'.html',function(r1){
-				$(".swiper-wrapper").load(slides[0]+'.html',function(r2){
-					$(".swiper-wrapper").append(r1);
-					mySwiper.reInit();
-					loadedSlides = 2;
+			if(typeof slides[1]!='undefined'){
+				$(".swiper-wrapper").load(slides[1],function(r1){
+					$(".swiper-wrapper").load(slides[0],function(r2){
+						$(".swiper-wrapper").append(r1);
+						mySwiper.reInit();
+						loadedSlides.push(slides[0]);
+						loadedSlides.push(slides[1]);
+					});
 				});
-			});
+			} else {
+				$(".swiper-wrapper").load(slides[0],function(r2){
+					mySwiper.reInit();
+					loadedSlides.push(slides[0]);
+				});
+			}
+			$('.slides_left').html(slides.length);
 		},
 		onSlideNext: function(s){
-			//loadedSlides>mySwiper.activeIndex
-			if(typeof slides[mySwiper.activeIndex+1]){
+			if(typeof slides[mySwiper.activeIndex+1]!='undefined' && slides.length > loadedSlides.length){
 				$.get(slides[mySwiper.activeIndex+1]+".html",function(data){
+					loadedSlides.push(slides[mySwiper.activeIndex+1]);
 					var newSlide = mySwiper.createSlide($(data).html());
 					newSlide.append();
 				});
 			}
+		},
+		onSlideChangeEnd: function(s,d){
+			var actual_slide = parseInt($('.actual_slide').html());
+			d=='next'?$('.actual_slide').html((actual_slide+1)):$('.actual_slide').html((actual_slide-1));
 		}
 	});
-	
 	$("#sub_bar .arrow-right").bind("click",function(){
 		mySwiper.swipeNext();
 	});
 	$("#sub_bar .arrow-left").bind("click",function(){
 		mySwiper.swipePrev();
 	});
-	//var newSlide = mySwiper.createSlide('<p>Hello</p>', 'swiper-slide red-slide', 'span');
-	//newSlide.append();
 	window.onresize = function(event) {
 		var h = $(document).height() - ($("header").height() + $("#main_bar").height() + $("#sub_bar").height());
 		$('.swiper-container').height(h);
