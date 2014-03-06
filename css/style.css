@@ -140,9 +140,7 @@ body {
 	min-height: 100%;
 	height: auto;
 	position: absolute;
-	top: 0;
-	left: -100%;
-	overflow: auto;
+	overflow: hidden;
 	overflow-x: hidden;
 	-webkit-overflow-scrolling: touch;
 	background: #131313 url(../img/sidebar-background.jpg) repeat-y right;
