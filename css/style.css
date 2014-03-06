@@ -143,8 +143,7 @@ body {
 	top: 0;
 	left: -100%;
 	overflow:hidden;
-	overflow-x: hidden;
-	-webkit-overflow-scrolling: touch;
+	overflow-x:hidden;
 	background: #131313 url(../img/sidebar-background.jpg) repeat-y right;
 }
 .left-sidebar.open{
@@ -196,7 +195,7 @@ body {
 	top: 0;
 	right: -100%;
 	left: 100%;
-	overflow-y: auto;
+	overflow:hidden;
 	background: #131313 url(../img/sidebar-background.jpg) repeat-y right;
 }
 .ui-bar-a .ui-shadow,.ui-bar-c,.ui-bar-d,.ui-bar-e,.ui-body-a,.ui-body-b,.ui-body-c,.ui-body-d,.ui-body-e,.ui-btn-active,.ui-btn-down-a,.ui-btn-down-b,.ui-btn-down-c,.ui-btn-down-d,.ui-btn-down-e,.ui-btn-hover-a,.ui-btn-hover-b,.ui-btn-hover-c,.ui-btn-hover-d,.ui-btn-hover-e,.ui-btn-up-a,.ui-btn-up-b,.ui-btn-up-c,.ui-btn-up-d,.ui-btn-up-e,.ui-overlay-c,.ui-overlay-shadow,.ui-shadow{
