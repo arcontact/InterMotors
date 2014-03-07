@@ -1,7 +1,6 @@
 /*! waitForImages jQuery Plugin 2013-07-20 */
 !function(a){var b="waitForImages";a.waitForImages={hasImageProperties:["backgroundImage","listStyleImage","borderImage","borderCornerImage","cursor"]},a.expr[":"].uncached=function(b){if(!a(b).is('img[src!=""]'))return!1;var c=new Image;return c.src=b.src,!c.complete},a.fn.waitForImages=function(c,d,e){var f=0,g=0;if(a.isPlainObject(arguments[0])&&(e=arguments[0].waitForAll,d=arguments[0].each,c=arguments[0].finished),c=c||a.noop,d=d||a.noop,e=!!e,!a.isFunction(c)||!a.isFunction(d))throw new TypeError("An invalid callback was supplied.");return this.each(function(){var h=a(this),i=[],j=a.waitForImages.hasImageProperties||[],k=/url\(\s*(['"]?)(.*?)\1\s*\)/g;e?h.find("*").addBack().each(function(){var b=a(this);b.is("img:uncached")&&i.push({src:b.attr("src"),element:b[0]}),a.each(j,function(a,c){var d,e=b.css(c);if(!e)return!0;for(;d=k.exec(e);)i.push({src:d[2],element:b[0]})})}):h.find("img:uncached").each(function(){i.push({src:this.src,element:this})}),f=i.length,g=0,0===f&&c.call(h[0]),a.each(i,function(e,i){var j=new Image;a(j).on("load."+b+" error."+b,function(a){return g++,d.call(i.element,g,f,"load"==a.type),g==f?(c.call(h[0]),!1):void 0}),j.src=i.src})})}}(jQuery);
 
-var swipeboxInstance;
 $(document).on("pageload",function() {
 	initiateScripts();
 });
@@ -18,13 +17,14 @@ function initiateScripts(){
 	buildSwiper();
 }
 function buildSwiper(){
-	var loadedSlides = new Array();javascript:void(0);
+	var loadedSlides = new Array();
 	var mySwiper = $('.swiper-container').swiper({
 		resizeReInit: true,
 		updateOnImagesReady: true,
 		onFirstInit: function(s){
 			if(typeof slides[1]!='undefined'){
-				$(".swiper-wrapper").load(slides[1],function(r1){
+				$.get(slides[1],function(r1){
+					$(r1).hide();
 					$(".swiper-wrapper").load(slides[0],function(r2){
 						$(".swiper-wrapper").append(r1);
 						mySwiper.reInit();
@@ -41,33 +41,52 @@ function buildSwiper(){
 				});
 			}
 			$('.slides_left').html(slides.length);
-			$(".swiper-wrapper, .swiper-slide").height(1);
-			
-			swipeboxInstance = $(".swipebox").swipebox();
-			
 		},
-		onSlideNext: function(s){
-			if(typeof slides[mySwiper.activeIndex+1]!='undefined' && slides.length > loadedSlides.length){
+		onSlideChangeEnd:function(s,d){
+			$('.actual_slide').html((mySwiper.activeIndex+1));
+			if(typeof slides[mySwiper.activeIndex+1]!='undefined' && slides.length > loadedSlides.length && d=='next'){
 				$.get(slides[mySwiper.activeIndex+1],function(data){
 					loadedSlides.push(slides[mySwiper.activeIndex+1]);
 					var newSlide = mySwiper.createSlide($(data).html());
 					newSlide.append();
-					swipeboxInstance.destroy();
-					var swipeboxInstance = $(".swipebox").swipebox();
+					updateSwiperHeight();
 				});
 			}
+			updateSwiperHeight();
 		},
-		onSlideChangeEnd: function(s,d){
-			var actual_slide = parseInt($('.actual_slide').html());
-			d=='next'?$('.actual_slide').html((actual_slide+1)):$('.actual_slide').html((actual_slide-1));
+		onImagesReady:function(){
 			updateSwiperHeight();
 		}
 	});
-	$("#sub_bar .arrow-right").bind("click",function(){
-		mySwiper.swipeNext();
+	
+	alreadyclicked=false;
+	$('#sub_bar .arrow-right').bind('click',function(){
+		var el=$(this);
+		if (alreadyclicked){
+			alreadyclicked=false;
+			clearTimeout(alreadyclickedTimeout);
+		} else {
+			alreadyclicked=true;
+			alreadyclickedTimeout=setTimeout(function(){
+				alreadyclicked=false;
+				mySwiper.swipeNext();
+			},300);
+		}
+		return false;
 	});
-	$("#sub_bar .arrow-left").bind("click",function(){
-		mySwiper.swipePrev();
+	$('#sub_bar .arrow-left').bind('click',function(){
+		var el=$(this);
+		if (alreadyclicked){
+			alreadyclicked=false;
+			clearTimeout(alreadyclickedTimeout);
+		} else {
+			alreadyclicked=true;
+			alreadyclickedTimeout=setTimeout(function(){
+				alreadyclicked=false;
+				mySwiper.swipePrev();
+			},300);
+		}
+		return false;
 	});
 	//window.addEventListener('orientationchange', updateSwiperHeight);
 	window.onresize = function(event) {
