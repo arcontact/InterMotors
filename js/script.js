@@ -16,9 +16,10 @@ function initiateScripts(){
 	});
 	buildSwiper();
 }
+var mySwiper;
 function buildSwiper(){
 	var loadedSlides = new Array();
-	var mySwiper = $('.swiper-container').swiper({
+	mySwiper = $('.swiper-container').swiper({
 		resizeReInit: true,
 		updateOnImagesReady: true,
 		onFirstInit: function(s){
@@ -44,15 +45,16 @@ function buildSwiper(){
 		},
 		onSlideChangeEnd:function(s,d){
 			$('.actual_slide').html((mySwiper.activeIndex+1));
-			if(typeof slides[mySwiper.activeIndex+1]!='undefined' && slides.length > loadedSlides.length && d=='next'){
+			if(typeof slides[mySwiper.activeIndex+1]!='undefined' && slides.length > loadedSlides.length && (d=='next' || (d=='to' && typeof loadedSlides[mySwiper.activeIndex+1]=='undefined'))){
 				$.get(slides[mySwiper.activeIndex+1],function(data){
 					loadedSlides.push(slides[mySwiper.activeIndex+1]);
 					var newSlide = mySwiper.createSlide($(data).html());
 					newSlide.append();
 					updateSwiperHeight();
 				});
+			} else {
+				updateSwiperHeight();
 			}
-			updateSwiperHeight();
 		},
 		onImagesReady:function(){
 			updateSwiperHeight();
@@ -70,7 +72,7 @@ function buildSwiper(){
 			alreadyclickedTimeout=setTimeout(function(){
 				alreadyclicked=false;
 				mySwiper.swipeNext();
-			},300);
+			},200);
 		}
 		return false;
 	});
@@ -84,7 +86,7 @@ function buildSwiper(){
 			alreadyclickedTimeout=setTimeout(function(){
 				alreadyclicked=false;
 				mySwiper.swipePrev();
-			},300);
+			},200);
 		}
 		return false;
 	});
@@ -102,6 +104,40 @@ function updateSwiperHeight(){
 		});
 		$(".swiper-wrapper, .swiper-slide").height(totalHeight);
 	});
+	$('.magnificPopup').magnificPopup({
+		tClose: 'Zamknij (Esc)',
+		tLoading: 'Wczytuję...',
+		type: 'image',
+		gallery: {
+			enabled: true,
+			tPrev: 'Poprzednie',
+			tNext: 'Następne',
+			tCounter: '%curr% z %total%'
+		},
+		image: {
+			tError: 'Nie można wgrać zdjęcia.',
+			titleSrc: function(item) {
+				var t = item.el.attr('title');
+				var s = item.el.data();
+				if(typeof t!='undefined'){
+					if(typeof s.slide!='undefined'){
+						var i = slides.indexOf(s.slide);
+						if(i!=mySwiper.activeIndex){
+							return t + '<small><a onclick="swipeTo('+i+')">przejdź do strony produktu</a></small>';
+						} else {
+							return t;
+						}
+					} else {
+						return t;
+					}
+				}
+			}
+		}
+	});
+}
+function swipeTo(index){
+	mySwiper.swipeTo(index, 300, true);
+	$.magnificPopup.close();
 }
 function contentSwipeLeftHandler(event){
 	var position = $(".ui-page-active .content").hasClass("open-right") ? 'left' : ($(".ui-page-active .content").hasClass("open-left") ? 'right' : 'center');
