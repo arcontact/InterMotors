@@ -45,7 +45,7 @@ function buildSwiper(){
 		},
 		onSlideChangeEnd:function(s,d){
 			$('.actual_slide').html((mySwiper.activeIndex+1));
-			if(typeof slides[mySwiper.activeIndex+1]!='undefined' && slides.length > loadedSlides.length && (d=='next' || (d=='to' && typeof loadedSlides[mySwiper.activeIndex+1]=='undefined'))){
+			if(typeof slides[mySwiper.activeIndex+1]!='undefined' && slides.length > loadedSlides.length && ((mySwiper.activeIndex+1)==loadedSlides.length) && (d=='next' || (d=='to' && typeof loadedSlides[mySwiper.activeIndex+1]=='undefined'))){
 				$.get(slides[mySwiper.activeIndex+1],function(data){
 					loadedSlides.push(slides[mySwiper.activeIndex+1]);
 					var newSlide = mySwiper.createSlide($(data).html());
